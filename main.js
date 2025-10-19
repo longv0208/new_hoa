@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // === HIỆU ỨNG ĐÁNH MÁY CHỮ ===
     const greetings = [
-        "Chúc mừng ngày 8/3",
-        "Chúc các bạn nữ luôn xinh đẹp, tươi trẻ",
-        "Chúc một ngày tràn đầy niềm vui và hạnh phúc",
-        "Mãi mãi là những đóa hoa rực rỡ nhất"
+        "Chúc mừng ngày 20/10",
+        "10 điểm là biểu tượng hoàn hảo",
+        "Các bạn gấp đôi hoàn hảo, các bạn 20/10",
+        // "Mãi mãi là những đóa hoa rực rỡ nhất"
     ];
     
     let currentGreetingIndex = 0;
