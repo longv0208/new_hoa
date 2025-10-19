@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Hiệu Ứng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .demo-container {
+            text-align: center;
+            padding: 50px 20px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .demo-section {
+            margin: 30px auto;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .effect-preview {
+            position: relative;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .effect-preview-text {
+            font-size: 2rem;
+            font-weight: bold;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 105, 180, 1);
+            }
+        }
+        
+        /* Import effects từ file chính */
+        .hearts-container,
+        .butterflies-container,
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            animation: floatHeart 7s linear forwards;
+        }
+        
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .butterfly {
+            position: absolute;
+            animation: butterflyFlap 0.5s ease-in-out infinite;
+        }
+        
+        @keyframes butterflyFlap {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        
+        .petal {
+            position: absolute;
+            top: -50px;
+            animation: fallPetal 10s linear forwards;
+        }
+        
+        @keyframes fallPetal {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+            animation: sparkleAnimation 1.5s ease-in-out forwards;
+            pointer-events: none;
+            z-index: 200;
+        }
+        
+        @keyframes sparkleAnimation {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+        
+        .toggle-btn {
+            padding: 10px 20px;
+            margin: 10px;
+            background: #ff69b4;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-btn:hover {
+            background: #ff1493;
+            transform: translateY(-2px);
+        }
+        
+        .toggle-btn.active {
+            background: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container" id="heartsContainer"></div>
+    <div class="butterflies-container" id="butterfliesContainer"></div>
+    <div class="petals-container" id="petalsContainer"></div>
+    
+    <div class="demo-container">
+        <h1>🌸 Demo Hiệu Ứng Thiệp Chúc 🌸</h1>
+        
+        <div class="demo-section">
+            <h2>❤️ Hiệu Ứng Tim Bay</h2>
+            <p>Những trái tim nhỏ bay từ dưới lên trên màn hình</p>
+            <button class="toggle-btn active" id="toggleHearts">Bật/Tắt</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2>🦋 Hiệu Ứng Bướm Bay</h2>
+            <p>Những chú bướm bay ngang qua màn hình theo đường cong</p>
+            <button class="toggle-btn active" id="toggleButterflies">Bật/Tắt</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2>🌸 Hiệu Ứng Mưa Hoa Rơi</h2>
+            <p>Các cánh hoa rơi từ trên xuống theo đường xoắn ốc</p>
+            <button class="toggle-btn active" id="togglePetals">Bật/Tắt</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2>✨ Hiệu Ứng Ánh Sáng Lấp Lánh</h2>
+            <p>Những điểm sáng xuất hiện ngẫu nhiên khắp màn hình</p>
+            <button class="toggle-btn active" id="toggleSparkles">Bật/Tắt</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2>🎭 Hiệu Ứng Đánh Máy Chữ</h2>
+            <div class="effect-preview">
+                <div class="effect-preview-text" id="typewriterText"></div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>📝 Hướng Dẫn</h2>
+            <p>Nhấn vào các nút "Bật/Tắt" để bật/tắt từng hiệu ứng riêng lẻ</p>
+            <p>Tất cả các hiệu ứng này đã được tích hợp vào file flower.html</p>
+        </div>
+    </div>
+    
+    <script>
+        // === QUẢN LÝ HIỆU ỨNG ===
+        let effectsEnabled = {
+            hearts: true,
+            butterflies: true,
+            petals: true,
+            sparkles: true
+        };
+        
+        let intervals = {};
+        
+        // === HIỆU ỨNG TIM BAY ===
+        function createHeart() {
+            if (!effectsEnabled.hearts) return;
+            
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heart.style.opacity = Math.random() * 0.5 + 0.3;
+            
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+        
+        // === HIỆU ỨNG BƯỚM BAY ===
+        function createButterfly() {
+            if (!effectsEnabled.butterflies) return;
+            
+            const butterfliesContainer = document.getElementById('butterfliesContainer');
+            const butterfly = document.createElement('div');
+            butterfly.className = 'butterfly';
+            butterfly.innerHTML = '🦋';
+            
+            const startY = Math.random() * 60 + 20;
+            const startX = Math.random() > 0.5 ? -50 : window.innerWidth + 50;
+            const endX = startX < 0 ? window.innerWidth + 50 : -50;
+            
+            butterfly.style.top = startY + 'vh';
+            butterfly.style.left = startX + 'px';
+            butterfly.style.fontSize = (Math.random() * 15 + 20) + 'px';
+            
+            butterfliesContainer.appendChild(butterfly);
+            
+            const duration = Math.random() * 8000 + 10000;
+            const startTime = Date.now();
+            
+            function animateButterfly() {
+                const elapsed = Date.now() - startTime;
+                const progress = elapsed / duration;
+                
+                if (progress < 1) {
+                    const currentX = startX + (endX - startX) * progress;
+                    const wave = Math.sin(progress * Math.PI * 4) * 100;
+                    
+                    butterfly.style.left = currentX + 'px';
+                    butterfly.style.top = (startY + wave / 10) + 'vh';
+                    butterfly.style.transform = `rotate(${Math.sin(progress * Math.PI * 8) * 20}deg)`;
+                    
+                    requestAnimationFrame(animateButterfly);
+                } else {
+                    butterfly.remove();
+                }
+            }
+            
+            animateButterfly();
+        }
+        
+        // === HIỆU ỨNG MƯA HOA RƠI ===
+        function createPetal() {
+            if (!effectsEnabled.petals) return;
+            
+            const petalsContainer = document.getElementById('petalsContainer');
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            
+            const petalTypes = ['🌸', '🌺', '🌼', '🌻', '💮'];
+            petal.innerHTML = petalTypes[Math.floor(Math.random() * petalTypes.length)];
+            
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            petal.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            petal.style.opacity = Math.random() * 0.6 + 0.4;
+            
+            petalsContainer.appendChild(petal);
+            
+            setTimeout(() => {
+                petal.remove();
+            }, 10000);
+        }
+        
+        // === HIỆU ỨNG ÁNH SÁNG LẤP LÁNH ===
+        function createSparkle() {
+            if (!effectsEnabled.sparkles) return;
+            
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1500);
+        }
+        
+        // === HIỆU ỨNG ĐÁNH MÁY CHỮ ===
+        const greetings = [
+            "Chúc mừng ngày 8/3",
+            "Chúc các bạn nữ luôn xinh đẹp",
+            "Một ngày tràn đầy niềm vui",
+            "Mãi là những đóa hoa rực rỡ"
+        ];
+        
+        let currentGreetingIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterText = document.getElementById('typewriterText');
+        
+        function typeWriter() {
+            const currentText = greetings[currentGreetingIndex];
+            
+            if (!isDeleting && charIndex < currentText.length) {
+                typewriterText.textContent += currentText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            } else if (isDeleting && charIndex > 0) {
+                typewriterText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, 50);
+            } else if (!isDeleting && charIndex === currentText.length) {
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                currentGreetingIndex = (currentGreetingIndex + 1) % greetings.length;
+                setTimeout(typeWriter, 500);
+            }
+        }
+        
+        // === KHỞI ĐỘNG HIỆU ỨNG ===
+        intervals.hearts = setInterval(createHeart, 800);
+        intervals.butterflies = setInterval(createButterfly, 3000);
+        intervals.petals = setInterval(createPetal, 500);
+        intervals.sparkles = setInterval(createSparkle, 200);
+        
+        setTimeout(typeWriter, 500);
+        
+        // Tạo vài bướm ngay từ đầu
+        for (let i = 0; i < 3; i++) {
+            setTimeout(createButterfly, i * 1000);
+        }
+        
+        // === XỬ LÝ NÚT BẬT/TẮT ===
+        document.getElementById('toggleHearts').addEventListener('click', function() {
+            effectsEnabled.hearts = !effectsEnabled.hearts;
+            this.classList.toggle('active');
+            if (!effectsEnabled.hearts) {
+                document.getElementById('heartsContainer').innerHTML = '';
+            }
+        });
+        
+        document.getElementById('toggleButterflies').addEventListener('click', function() {
+            effectsEnabled.butterflies = !effectsEnabled.butterflies;
+            this.classList.toggle('active');
+            if (!effectsEnabled.butterflies) {
+                document.getElementById('butterfliesContainer').innerHTML = '';
+            }
+        });
+        
+        document.getElementById('togglePetals').addEventListener('click', function() {
+            effectsEnabled.petals = !effectsEnabled.petals;
+            this.classList.toggle('active');
+            if (!effectsEnabled.petals) {
+                document.getElementById('petalsContainer').innerHTML = '';
+            }
+        });
+        
+        document.getElementById('toggleSparkles').addEventListener('click', function() {
+            effectsEnabled.sparkles = !effectsEnabled.sparkles;
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
+

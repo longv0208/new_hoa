@@ -1,0 +1,356 @@
+/* ===== LỜI CHÚC VỚI HIỆU ỨNG ĐÁNH MÁY ===== */
+.greeting-message {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 1000;
+    width: 90%;
+    max-width: 800px;
+    pointer-events: none;
+}
+
+.greeting-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 
+        0 0 10px rgba(255, 105, 180, 0.8),
+        0 0 20px rgba(255, 105, 180, 0.6),
+        0 0 30px rgba(255, 105, 180, 0.4),
+        2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+    min-height: 4rem;
+    font-family: 'Roboto', sans-serif;
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+.greeting-subtext {
+    font-size: 1.2rem;
+    color: #ffd700;
+    text-shadow: 
+        0 0 5px rgba(255, 215, 0, 0.8),
+        2px 2px 3px rgba(0, 0, 0, 0.5);
+    animation: fadeInOut 3s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow: 
+            0 0 10px rgba(255, 105, 180, 0.8),
+            0 0 20px rgba(255, 105, 180, 0.6),
+            0 0 30px rgba(255, 105, 180, 0.4),
+            2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    to {
+        text-shadow: 
+            0 0 20px rgba(255, 105, 180, 1),
+            0 0 30px rgba(255, 105, 180, 0.8),
+            0 0 40px rgba(255, 105, 180, 0.6),
+            2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ===== CONTROL PANEL ===== */
+.control-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+}
+
+.control-btn {
+    background: rgba(255, 105, 180, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: rgba(255, 105, 180, 1);
+}
+
+.control-content {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid rgba(255, 105, 180, 0.6);
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 300px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.control-content.show {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.control-content h3 {
+    color: #ff69b4;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.control-group {
+    margin-bottom: 15px;
+}
+
+.control-group label {
+    display: block;
+    color: #ffd700;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.control-group select,
+.control-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid rgba(255, 105, 180, 0.5);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+}
+
+.control-group button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.control-group button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 105, 180, 0.5);
+}
+
+/* ===== HIỆU ỨNG TIM BAY ===== */
+.hearts-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    bottom: -50px;
+    animation: floatHeart 7s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===== HIỆU ỨNG BƯỚM BAY ===== */
+.butterflies-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 150;
+    overflow: hidden;
+}
+
+.butterfly {
+    position: absolute;
+    animation: butterflyFlap 0.5s ease-in-out infinite;
+    pointer-events: none;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes butterflyFlap {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(5deg);
+    }
+}
+
+/* ===== HIỆU ỨNG MƯA HOA RƠI ===== */
+.petals-container {
+    position: fixed;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+    overflow: hidden;
+}
+
+.petal {
+    position: absolute;
+    top: -50px;
+    animation: fallPetal 10s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes fallPetal {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(720deg) translateX(100px);
+        opacity: 0;
+    }
+}
+
+/* ===== HIỆU ỨNG ÁNH SÁNG LẤP LÁNH ===== */
+.sparkle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 10px #fff,
+        0 0 20px #ff69b4,
+        0 0 30px #ff69b4;
+    animation: sparkleAnimation 1.5s ease-in-out forwards;
+    pointer-events: none;
+    z-index: 200;
+}
+
+@keyframes sparkleAnimation {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* ===== BIẾN CSS CHO MÀU HOA ===== */
+:root {
+    --petal-color-1: #ed6ea0;
+    --petal-color-2: #ec7c9a;
+    --petal-color-3: #cf6a87;
+    --petal-color-4: #e88ca3;
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 768px) {
+    .greeting-text {
+        font-size: 2rem;
+        min-height: 3rem;
+    }
+    
+    .greeting-subtext {
+        font-size: 1rem;
+    }
+    
+    .control-panel {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .control-content {
+        min-width: 250px;
+        padding: 15px;
+        right: -10px;
+    }
+    
+    .control-content h3 {
+        font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .greeting-text {
+        font-size: 1.5rem;
+        min-height: 2.5rem;
+    }
+    
+    .greeting-subtext {
+        font-size: 0.9rem;
+    }
+    
+    .control-content {
+        min-width: 200px;
+        padding: 10px;
+    }
+    
+    .control-group label {
+        font-size: 12px;
+    }
+    
+    .control-group select,
+    .control-group input,
+    .control-group button {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+/* ===== ANIMATION CHO HOA KHI ĐỔI MÀU ===== */
+.flower__leafs,
+.flower__leaf {
+    transition: background-color 0.5s ease, fill 0.5s ease;
+}
+
