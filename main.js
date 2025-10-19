@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Chúc mừng ngày 20/10",
         "10 điểm là biểu tượng hoàn hảo",
         "Các bạn gấp đôi hoàn hảo, các bạn 20/10",
-        // "Mãi mãi là những đóa hoa rực rỡ nhất"
+        "Mãi mãi là những đóa hoa rực rỡ nhất"
     ];
     
     let currentGreetingIndex = 0;
